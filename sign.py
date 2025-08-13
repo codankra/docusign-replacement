@@ -8,20 +8,12 @@ import requests
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 
-FONT_NAME = "Handwriting"
-FONT_FILE = "DancingScript-Regular.ttf"
-FONT_URL = "https://raw.githubusercontent.com/google/fonts/main/ofl/dancingscript/DancingScript-Regular.ttf"
-
-# Download if missing
-if not os.path.exists(FONT_FILE):
-    print("Downloading handwriting font...")
-    r = requests.get(FONT_URL)
-    with open(FONT_FILE, "wb") as f:
-        f.write(r.content)
+SIGNATURE_NAME = "codankra"
 
 # Register font
+FONT_NAME = "Handwriting"
+FONT_FILE = "DancingScript-Regular.ttf"
 pdfmetrics.registerFont(TTFont(FONT_NAME, FONT_FILE))
-
 
 
 # File paths
@@ -56,7 +48,7 @@ c.drawString(date_line_start, y_pos - 12, "Date")
 
 # Signature in italic Courier (built-in "pseudo handwriting")
 c.setFont(FONT_NAME, 16)
-c.drawString(margin + 5, y_pos + 5, "Daniel Kramer")
+c.drawString(margin + 5, y_pos + 5, SIGNATURE_NAME)
 
 # Date in bold Helvetica
 c.setFont("Helvetica-Bold", 10)
